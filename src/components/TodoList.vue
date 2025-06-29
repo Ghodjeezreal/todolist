@@ -181,9 +181,9 @@ function restoreTask(item) {
 
 <style scoped>
 .todo-container {
-  max-width: 420px;
+  max-width: 520px;
   width: 100%;
-  margin: 40px auto;
+  margin: 10px auto;
   padding: 28px 20px 18px 20px;
   background: #fff;
   border-radius: 16px;
