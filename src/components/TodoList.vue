@@ -1,60 +1,68 @@
 <template>
-  <div class="todo-container">
-    <h2>My To-Do List</h2>
-    <div class="input-row">
-      <input
-        v-model="newTodo"
-        @keyup.enter="addTodo"
-        placeholder="Add a new task"
-        class="todo-input"
+  <div>
+    <div class="todo-container">
+      <h2>To-Do List</h2>
+      <div class="input-row">
+        <input
+          v-model="newTodo"
+          @keyup.enter="addTodo"
+          placeholder="Add a new task"
+          class="todo-input"
+        />
+        <button @click="addTodo" class="add-btn">Add</button>
+      </div>
+
+      <div class="filters-row">
+        <button
+          class="filter-btn"
+          :class="{ active: filter === 'all' }"
+          @click="filter = 'all'"
+        >All</button>
+        <button
+          class="filter-btn"
+          :class="{ active: filter === 'active' }"
+          @click="filter = 'active'"
+        >Active</button>
+        <button
+          class="filter-btn"
+          :class="{ active: filter === 'completed' }"
+          @click="filter = 'completed'"
+        >Completed</button>
+      </div>
+
+      <ul class="todo-list">
+        <TodoItem
+          v-for="todo in filteredTodos"
+          :key="todo.id"
+          :todo="todo"
+          @update="updateTodo"
+          @delete="removeTodo"
+          @complete="completeTodo"
+        />
+      </ul>
+
+      <TodoFooter
+        :active="activeCount"
+        :completed="completedCount"
+        :total="todos.length"
+        @clear-completed="clearCompleted"
       />
-      <button @click="addTodo" class="add-btn">Add</button>
-    </div>
 
-    <div class="filters-row">
-      <button
-        class="filter-btn"
-        :class="{ active: filter === 'all' }"
-        @click="filter = 'all'"
-      >All</button>
-      <button
-        class="filter-btn"
-        :class="{ active: filter === 'active' }"
-        @click="filter = 'active'"
-      >Active</button>
-      <button
-        class="filter-btn"
-        :class="{ active: filter === 'completed' }"
-        @click="filter = 'completed'"
-      >Completed</button>
-    </div>
+      <p v-if="todos.length === 0" class="empty-msg">No tasks yet! 🎉</p>
 
-    <ul class="todo-list">
-      <TodoItem
-        v-for="todo in filteredTodos"
-        :key="todo.id"
-        :todo="todo"
-        @update="updateTodo"
-        @delete="removeTodo"
-        @complete="completeTodo"
+      <TodoHistory
+        :history="history"
+        @restore="restoreTask"
+        @clear-history="clearHistory"
       />
-    </ul>
-
-    <TodoFooter
-      :active="activeCount"
-      :completed="completedCount"
-      :total="todos.length"
-      @clear-completed="clearCompleted"
-    />
-
-    <p v-if="todos.length === 0" class="empty-msg">No tasks yet! 🎉</p>
-
-    <TodoHistory
-      :history="history"
-      @restore="restoreTask"
-      @clear-history="clearHistory"
-    />
+    </div>
   </div>
+  <footer class="app-footer">
+    Created by
+    <a href="https://portfoliobyfred.netlify.app" target="_blank" rel="noopener">
+      Fredrick Okojie
+    </a>
+  </footer>
 </template>
 
 <script setup>
@@ -250,13 +258,26 @@ h2 {
   font-style: italic;
   font-size: 1.1rem;
 }
-@media (max-width: 500px) {
-  .todo-container {
-    padding: 16px 5px;
-  }
-  .todo-input, .add-btn, .filter-btn {
-    font-size: 0.95rem;
-    padding: 8px;
-  }
+</style>
+
+<style>
+.app-footer {
+  margin: 32px auto 0 auto;
+  text-align: center;
+  font-size: 1rem;
+  color: #888;
+  background: #f9f9f9;
+  padding: 18px 0 12px 0;
+  width: 100vw;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  z-index: 10;
+  box-shadow: 0 -2px 8px rgba(0,0,0,0.03);
+}
+.app-footer a {
+  color: #43D676;
+  text-decoration: none;
+  font-weight: bold;
 }
 </style>

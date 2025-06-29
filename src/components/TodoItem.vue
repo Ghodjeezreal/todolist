@@ -339,4 +339,17 @@ function formatDate(dateStr) {
 .subtask-toggle-btn:hover {
   background: #c7e0ff;
 }
+.app-footer {
+  margin: 32px auto 0 auto;
+  text-align: center;
+  font-size: 1rem;
+  color: #888;
+  background: none;
+  display: block;
+}
+.app-footer a {
+  color: #43D676;
+  text-decoration: none;
+  font-weight: bold;
+}
 </style>
