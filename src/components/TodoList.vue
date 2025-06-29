@@ -182,11 +182,13 @@ function restoreTask(item) {
 <style scoped>
 .todo-container {
   max-width: 420px;
+  width: 100%;
   margin: 40px auto;
   padding: 28px 20px 18px 20px;
   background: #fff;
   border-radius: 16px;
   box-shadow: 0 4px 24px rgba(0,0,0,0.08), 0 1.5px 6px rgba(0,0,0,0.06);
+  box-sizing: border-box;
 }
 h2 {
   text-align: center;
@@ -279,5 +281,30 @@ h2 {
   color: #43D676;
   text-decoration: none;
   font-weight: bold;
+}
+@media (max-width: 500px) {
+  .todo-container {
+    padding: 16px 5px;
+    width: 98%;
+  }
+  .todo-input, .add-btn, .filter-btn {
+    font-size: 0.95rem;
+    padding: 8px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .input-row, .filters-row {
+    flex-direction: column;
+    gap: 6px;
+  }
+}
+@media (max-width: 350px) {
+  .todo-container {
+    padding: 8px 2px;
+    width: 100%;
+  }
+  h2 {
+    font-size: 1.1rem;
+  }
 }
 </style>
